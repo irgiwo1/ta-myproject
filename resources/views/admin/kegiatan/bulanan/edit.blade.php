@@ -1,0 +1,43 @@
+@extends('layouts.admin')
+
+@section('content')
+<div class="content-body">
+    <div class="container-fluid">
+        <h4>Edit Kegiatan Bulanan</h4>
+        <form action="{{ route('admin.kegiatan.bulanan.update', $kegiatanBulanan->id_kegiatan) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                <label for="id_user">Nama User</label>
+                <select name="id_user" id="id_user" class="form-control" required>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id_user }}" {{ $kegiatanBulanan->id_user == $user->id_user ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_lokasi">Lokasi</label>
+                <select name="id_lokasi" id="id_lokasi" class="form-control" required>
+                    @foreach ($lokasis as $lokasi)
+                        <option value="{{ $lokasi->id_lokasi }}" {{ $kegiatanBulanan->id_lokasi == $lokasi->id_lokasi ? 'selected' : '' }}>
+                            {{ $lokasi->nama_lokasi }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tanggal_kegiatan">Tanggal</label>
+                <input type="date" name="tanggal_kegiatan" id="tanggal_kegiatan" class="form-control" value="{{ $kegiatanBulanan->tanggal_kegiatan }}" required>
+            </div>
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi</label>
+                <textarea name="deskripsi" id="deskripsi" class="form-control" rows="5" required>{{ $kegiatanBulanan->deskripsi }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Update</button>
+            <a href="{{ route('admin.kegiatan.bulanan.index') }}" class="btn btn-secondary">Batal</a>
+        </form>
+    </div>
+</div>
+@endsection
